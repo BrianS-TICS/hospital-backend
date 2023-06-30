@@ -9,20 +9,16 @@ const { dbConnection } = require('./database/config.js')
 const app = express();
 
 // Configurar CORS
-app.use( cors() )
+app.use(cors())
+
+// To read the body 
+app.use( express.json() );
 
 // BD Connection
 dbConnection();
 
-// Routes
-app.get('/', (req, res) => {
+app.use('/api/users', require('./routes/users.js'))
 
-    res.status(400).json({
-        okey: true,
-        msg : "hola mundo"
-    });
-
-});
 
 app.listen(process.env.PORT, () => {
     console.log('runing ' + process.env.PORT);
