@@ -18,6 +18,7 @@ app.use( express.json() );
 dbConnection();
 
 app.use('/api/users', require('./routes/users.js'))
+app.use('/api/login', require('./routes/auth.js'))
 
 
 app.listen(process.env.PORT, () => {

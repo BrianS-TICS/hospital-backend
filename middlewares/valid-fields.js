@@ -1,7 +1,8 @@
+const { response } = require('express');
 const { validationResult } = require('express-validator');
 
-const { response } = require('express');
 const validFields = (req, res = response, next) => {
+    
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
