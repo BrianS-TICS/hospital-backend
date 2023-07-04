@@ -31,7 +31,7 @@ const login = async (req, res = response) => {
         }
 
         // Generate a verification token
-        const token = await generateJWT(user.uid, user.name, user.role)
+        const token = await generateJWT(user.id, user.name, user.role)
 
 
         res.json({

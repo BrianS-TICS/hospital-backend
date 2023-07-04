@@ -15,8 +15,10 @@ const validJWTSession = (req, res = response, next) => {
     try {
 
         const { uid } = jwt.verify(token, process.env.JWT_SECRET_WORD);
+        console.log(uid);
+
         req.uid = uid;
-        
+
         next();
 
     } catch (error) {
