@@ -5,7 +5,9 @@ const Doctor = require('../models/Doctor.js')
 
 const getDoctors = async (req, res) => {
 
-    const doctors = await Doctor.find({});
+    const doctors = await Doctor.find()
+        .populate('user', 'name image')
+        .populate('hospital', 'name image')
 
     res.json({
         ok: true,
@@ -16,7 +18,7 @@ const getDoctors = async (req, res) => {
 
 const storeDoctor = async (req, res = response) => {
 
-    const authenticartedUserId = req.ui;
+    const authenticartedUserId = req.uid;
     const { hospital } = req.body
 
     try {
@@ -25,7 +27,7 @@ const storeDoctor = async (req, res = response) => {
         if (!existHospital) {
             return res.status(404).json({
                 ok: false,
-                msg: "El hospital es inválido"
+                msg: "El hospital no existe"
             })
         }
 

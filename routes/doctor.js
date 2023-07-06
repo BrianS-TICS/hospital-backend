@@ -14,7 +14,7 @@ router.post('/',
     [
         validJWTSession,
         check('name', 'El nombre es obligatorio').notEmpty(),
-        check('hospital', 'El hospital es obligatorio').notEmpty(),
+        check('hospital', 'El hospital es debe de ser válido').isMongoId(),
         validFields
     ]
     , storeDoctor);
