@@ -5,10 +5,22 @@ const { generateJWT } = require('../helpers/JWT.js')
 
 const getUsers = async (req, res) => {
 
-    const users = await User.find({}, 'name email rol google');
+    const from = Number(req.query.from) || 0;
+
+    const [users, totalRecords] = await Promise.all([
+        User
+            .find({}, 'name email rol google')
+            .skip(from)
+            .limit(5),
+
+        User.count()
+    ])
+
+
     res.json({
         ok: true,
         uid: req.uid,
+        totalRecords,
         users
     })
 
@@ -38,7 +50,7 @@ const storeUser = async (req, res = response) => {
         await user.save();
 
         // Generate a verification token
-        const token = await generateJWT( user.id, user.name, user.role)
+        const token = await generateJWT(user.id, user.name, user.role)
 
 
         res.json({

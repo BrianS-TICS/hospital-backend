@@ -15,6 +15,8 @@ const HospitalSchema = Schema({
     }
 })
 
+HospitalSchema.index({ name: 'text' });
+
 HospitalSchema.method('toJSON', function () {
     const { __v, ...object } = this.toObject();
     return object;

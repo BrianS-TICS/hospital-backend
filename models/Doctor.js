@@ -20,6 +20,9 @@ const DoctorSchema = Schema({
     }
 })
 
+DoctorSchema.index({ name: 'text' });
+
+
 DoctorSchema.method('toJSON', function () {
     const { __v, ...object } = this.toObject();
     return object;

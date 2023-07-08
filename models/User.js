@@ -28,6 +28,8 @@ const UserSchema = Schema({
     }
 })
 
+UserSchema.index({ name: 'text', email: 'text' });
+
 UserSchema.method('toJSON', function() {
     const {__v, _id, password, ...object} = this.toObject();
     object.uid = _id;
