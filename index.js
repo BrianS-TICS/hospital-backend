@@ -22,6 +22,7 @@ app.use('/api/login', require('./routes/auth.js'))
 app.use('/api/hospital', require('./routes/hospital.js'))
 app.use('/api/doctor', require('./routes/doctor.js'))
 app.use('/api/all', require('./routes/searches.js'))
+app.use('/api/upload', require('./routes/upload.js'))
 
 
 app.listen(process.env.PORT, () => {

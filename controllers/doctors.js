@@ -33,6 +33,7 @@ const storeDoctor = async (req, res = response) => {
 
         const doctor = new Doctor({
             user: authenticartedUserId,
+            image : '',
             ...req.body
         })
 
