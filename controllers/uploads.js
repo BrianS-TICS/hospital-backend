@@ -1,6 +1,7 @@
 const { response } = require("express");
 const { v4: uuid } = require('uuid');
-
+const path = require('path');
+const fs = require('fs');
 
 const Doctor = require("../models/Doctor");
 const Hospital = require("../models/Hospital");
@@ -19,6 +20,15 @@ const fileUpload = (req, res = response) => {
             ok: false,
             msg: 'No hay ningún archivo'
         });
+    }
+
+    const validInstancesTypes = ['users', 'doctors', 'hospitals'];
+
+    if (!validInstancesTypes.includes(type)) {
+        return res.status(400).json({
+            ok: false,
+            msg: "El tipo de instancia es incorrecto, debe ser, users | doctos | hospitals"
+        })
     }
 
     const shortName = file.name.split('.');
@@ -48,8 +58,8 @@ const fileUpload = (req, res = response) => {
 
         if (!result.ok) {
             return res.status(500).json({
-                ok: true,
-                msg: 'Error al guardar imagen',
+                ok: false,
+                msg: result.msg,
             });
         }
 
@@ -64,7 +74,25 @@ const fileUpload = (req, res = response) => {
 
 }
 
+const getImage = (req, res = response) => {
+
+    const type = req.params.type;
+    const image = req.params.image;
+
+    let pathImg = path.join(__dirname, `../uploads/${type}/${image}`);
+
+    if (fs.existsSync(pathImg)) {
+        res.sendFile(pathImg);
+    } else {
+        pathImg = path.join(__dirname, `../uploads/no-img.jpg`);
+        res.sendFile(pathImg);
+
+    }
+
+}
+
 
 module.exports = {
-    fileUpload
+    fileUpload,
+    getImage
 }
