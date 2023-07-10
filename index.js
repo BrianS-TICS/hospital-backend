@@ -11,8 +11,10 @@ const app = express();
 // Configurar CORS
 app.use(cors())
 
+app.use(express.static('public'))
+
 // To read the body 
-app.use( express.json() );
+app.use(express.json());
 
 // BD Connection
 dbConnection();
@@ -23,6 +25,7 @@ app.use('/api/hospital', require('./routes/hospital.js'))
 app.use('/api/doctor', require('./routes/doctor.js'))
 app.use('/api/all', require('./routes/searches.js'))
 app.use('/api/upload', require('./routes/upload.js'))
+
 
 
 app.listen(process.env.PORT, () => {

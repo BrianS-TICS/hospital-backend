@@ -53,7 +53,7 @@ const storeUser = async (req, res = response) => {
         const token = await generateJWT(user.id, user.name, user.role)
 
 
-        res.json({
+        res.status(200).json({
             user,
             token
         })
