@@ -11,7 +11,6 @@ router.get('/', validJWTSession, getUsers);
 
 router.post('/',
     [
-        validJWTSession,
         check('name', 'El nombre es obligatorio').not().isEmpty(),
         check('password', 'La contraseña es obligatoria').not().isEmpty(),
         check('email', 'El correo es obligatorio').isEmail(),
