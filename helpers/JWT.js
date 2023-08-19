@@ -26,6 +26,22 @@ const generateJWT = (uid, name, role) => {
 
 }
 
+const validateJWT = (token) => {
+
+    return new Promise((resolve, reject) => {
+
+        jwt.verify(token, process.env.JWT_SECRET_WORD, {}, (err, token) => {
+            if (err) {
+                reject("Token inválido")
+            } else {
+                resolve(token)
+            }
+        });
+
+    })
+}
+
 module.exports = {
-    generateJWT
+    generateJWT,
+    validateJWT
 }
